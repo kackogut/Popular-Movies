@@ -1,0 +1,154 @@
+package com.kacper.popularmovies;
+
+import android.content.Context;
+import android.content.Intent;
+import android.content.res.Configuration;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.os.AsyncTask;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.AttributeSet;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+
+import com.kacper.popularmovies.adapter.PosterAdapter;
+import com.kacper.popularmovies.data.Movie;
+import com.kacper.popularmovies.enums.SortingOrder;
+import com.kacper.popularmovies.utilities.JSONutils;
+import com.kacper.popularmovies.utilities.NetworkUtils;
+
+import org.json.JSONException;
+
+import java.io.IOException;
+import java.net.URL;
+import java.util.ArrayList;
+
+public class MainActivity extends AppCompatActivity implements PosterAdapter.PosterAdapterOnClickHandler, ThreadToUIListener{
+
+    private RecyclerView postersMovieRecyclerView;
+    private int currentPage=1;
+    private SortingOrder actualSortingOrder=SortingOrder.POPULARITY_DESCENDING;
+    private PosterAdapter posterAdapter;
+    private TextView errorText;
+    private ProgressBar progressBar;
+    boolean apiWrong = false;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        postersMovieRecyclerView = (RecyclerView)findViewById(R.id.poster_recycle_view);
+        GridLayoutManager gridLayoutManager;
+        if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT)
+            gridLayoutManager = new GridLayoutManager(this,2);
+        else
+            gridLayoutManager = new GridLayoutManager(this,4);
+        postersMovieRecyclerView.setLayoutManager(gridLayoutManager);
+        postersMovieRecyclerView.setHasFixedSize(true);
+        posterAdapter = new PosterAdapter(this,this);
+        postersMovieRecyclerView.setAdapter(posterAdapter);
+        progressBar = (ProgressBar)findViewById(R.id.loading_indicator);
+        errorText = (TextView)findViewById(R.id.error_text);
+        loadData();
+    }
+
+    private void loadData(){
+        if(isOnline()) {
+            errorText.setText(R.string.error_message);
+            posterAdapter.setAllMoviesOnPage(null);
+            showMovieData();
+            new FetchMovieTask(this).execute(actualSortingOrder);
+
+        }
+        else{
+            errorText.setText(R.string.internet_error);
+            showErrorMessage(null);
+        }
+
+    }
+
+    @Override
+    public View onCreateView(View parent, String name, Context context, AttributeSet attrs) {
+
+
+        return super.onCreateView(parent, name, context, attrs);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.order_popular:
+                actualSortingOrder=SortingOrder.POPULARITY_DESCENDING;
+                loadData();
+                item.setChecked(true);
+                return true;
+            case R.id.order_top_rated:
+                actualSortingOrder=SortingOrder.RATING_DESCENDING;
+                loadData();
+                item.setChecked(true);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
+    public void onClick(Movie clickedMovie) {
+        Context context = this;
+        Class destinationClass = DetailMovie.class;
+        Intent intentToStartDetailMovie = new Intent(context, destinationClass);
+        intentToStartDetailMovie.putExtra("poster",clickedMovie.getImageURI());
+        intentToStartDetailMovie.putExtra("name",clickedMovie.getTitle());
+        intentToStartDetailMovie.putExtra("details",clickedMovie.getOverwiew());
+        intentToStartDetailMovie.putExtra("rating",clickedMovie.getAverageRating());
+        intentToStartDetailMovie.putExtra("air",clickedMovie.getAirDate());
+        Log.v("AIRRR",clickedMovie.getAirDate());
+        startActivity(intentToStartDetailMovie);
+    }
+
+
+    @Override
+    public void showMovieData(){
+        errorText.setVisibility(View.INVISIBLE);
+        postersMovieRecyclerView.setVisibility(View.VISIBLE);
+    }
+    @Override
+    public void showErrorMessage(String message){
+        if(message!=null)
+            errorText.setText(message);
+        errorText.setVisibility(View.VISIBLE);
+        postersMovieRecyclerView.setVisibility(View.INVISIBLE);
+    }
+    @Override
+    public void showProgressBar(boolean show){
+        if(show)
+            progressBar.setVisibility(View.VISIBLE);
+        else
+            progressBar.setVisibility(View.INVISIBLE);
+    }
+
+    @Override
+    public void setMoviesToAdapter(ArrayList movies) {
+        posterAdapter.setAllMoviesOnPage(movies);
+    }
+
+    public boolean isOnline() {
+        ConnectivityManager cm =
+                (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        return netInfo != null && netInfo.isConnectedOrConnecting();
+    }
+}

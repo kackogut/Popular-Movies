@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Popular Movies</string>
+
+    <string name="error_message">Error while downloading the data</string>
+    <string name="internet_error">Cannot connect to the internet</string>
+    <string name="api_key_error">Enter valid Api Key</string>
+
+    <string name="main_menu_name">Sorting Order</string>
+    <string name="order_by_popular">Popular Descending</string>
+    <string name="order_by_rating">Rating Descending</string>
+</resources>
