@@ -30,21 +30,24 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class MainActivity extends AppCompatActivity implements PosterAdapter.PosterAdapterOnClickHandler, ThreadToUIListener{
 
-    private RecyclerView postersMovieRecyclerView;
-    private int currentPage=1;
+    @BindView(R.id.poster_recycle_view) RecyclerView postersMovieRecyclerView;
+    @BindView(R.id.error_text) TextView errorText;
+    @BindView(R.id.loading_indicator) ProgressBar progressBar;
     private SortingOrder actualSortingOrder=SortingOrder.POPULARITY_DESCENDING;
     private PosterAdapter posterAdapter;
-    private TextView errorText;
-    private ProgressBar progressBar;
+
     boolean apiWrong = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        postersMovieRecyclerView = (RecyclerView)findViewById(R.id.poster_recycle_view);
+        ButterKnife.bind(this);
         GridLayoutManager gridLayoutManager;
         if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT)
             gridLayoutManager = new GridLayoutManager(this,2);
@@ -54,8 +57,6 @@ public class MainActivity extends AppCompatActivity implements PosterAdapter.Pos
         postersMovieRecyclerView.setHasFixedSize(true);
         posterAdapter = new PosterAdapter(this,this);
         postersMovieRecyclerView.setAdapter(posterAdapter);
-        progressBar = (ProgressBar)findViewById(R.id.loading_indicator);
-        errorText = (TextView)findViewById(R.id.error_text);
         loadData();
     }
 
@@ -110,12 +111,7 @@ public class MainActivity extends AppCompatActivity implements PosterAdapter.Pos
         Context context = this;
         Class destinationClass = DetailMovie.class;
         Intent intentToStartDetailMovie = new Intent(context, destinationClass);
-        intentToStartDetailMovie.putExtra("poster",clickedMovie.getImageURI());
-        intentToStartDetailMovie.putExtra("name",clickedMovie.getTitle());
-        intentToStartDetailMovie.putExtra("details",clickedMovie.getOverwiew());
-        intentToStartDetailMovie.putExtra("rating",clickedMovie.getAverageRating());
-        intentToStartDetailMovie.putExtra("air",clickedMovie.getAirDate());
-        Log.v("AIRRR",clickedMovie.getAirDate());
+        intentToStartDetailMovie.putExtra("movie",clickedMovie);
         startActivity(intentToStartDetailMovie);
     }
 
