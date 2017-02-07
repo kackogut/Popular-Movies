@@ -3,15 +3,6 @@
 
     <item
         is-multidex="true"
-        jar="/Users/kacper/Documents/Workspace/Android/Popular-Movies/app/build/intermediates/exploded-aar/com.android.support/support-v4/25.1.0/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
-        <dex dex="/Users/kacper/Documents/Workspace/Android/Popular-Movies/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-v4-25.1.0_9ec9e146b429b022533e176aa9c19a61d0f87a2f/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
         jar="/Users/kacper/Documents/Workspace/Android/Popular-Movies/app/build/intermediates/exploded-aar/com.android.support/recyclerview-v7/25.1.0/jars/classes.jar"
         jumboMode="true"
         optimize="true"
@@ -36,15 +27,6 @@
         revision="25.0.2"
         sha1="aee64634871d88a419d59eb743c1258a60f19700">
         <dex dex="/Users/kacper/Documents/Workspace/Android/Popular-Movies/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-core-ui-25.1.0_ea808b2aeb991ab6a7c19eb1c0b603c1ef11884c/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/kacper/Documents/Workspace/Android/Popular-Movies/app/build/intermediates/exploded-aar/com.android.support/support-vector-drawable/25.1.0/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="e79aa3d9a16f8c9f16377c0608de70a8f31e5d80">
-        <dex dex="/Users/kacper/Documents/Workspace/Android/Popular-Movies/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-vector-drawable-25.1.0_71e96fb6dd91954a0333f5195ca6a5eb0ed60ff3/classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -75,39 +57,12 @@
     </item>
     <item
         is-multidex="true"
-        jar="/Users/kacper/Documents/Workspace/Android/Popular-Movies/app/build/intermediates/exploded-aar/com.jakewharton/butterknife/8.4.0/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="a07818a1ecabdb149998823429cce555af4b9cba">
-        <dex dex="/Users/kacper/Documents/Workspace/Android/Popular-Movies/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.jakewharton-butterknife-8.4.0_4c22681c30869b309b8cbc2b05d2418f5ef385d3/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
         jar="/Applications/Android Studio.app/Contents/gradle/m2repository/com/intellij/annotations/12.0/annotations-12.0.jar"
         jumboMode="true"
         optimize="true"
         revision="25.0.2"
         sha1="bbcf6448f6d40abe506e2c83b70a3e8bfd2b4539">
         <dex dex="/Users/kacper/Documents/Workspace/Android/Popular-Movies/app/build/intermediates/transforms/dex/debug/folders/1000/10/annotations-12.0_6ab208e9bda0af5e9ac0dc3d8044a83a3ea0a803/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/kacper/Documents/Workspace/Android/Popular-Movies/app/build/intermediates/exploded-aar/com.android.support/support-core-utils/25.1.0/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="0a0ef86b7fa568a52bf6214a0326ca1f1d618da7">
-        <dex dex="/Users/kacper/Documents/Workspace/Android/Popular-Movies/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-core-utils-25.1.0_63beaea1bd53cd7b20fc844ca199bffc0f2571a3/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/kacper/Documents/Workspace/Android/Popular-Movies/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="2ec0f856670a06183bf62e342c072df156fa9d31">
-        <dex dex="/Users/kacper/Documents/Workspace/Android/Popular-Movies/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run_7d78df59c30a4eab695a1336c81de2913a8ec176/classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -129,15 +84,6 @@
     </item>
     <item
         is-multidex="true"
-        jar="/Users/kacper/Documents/Workspace/Android/Popular-Movies/app/build/intermediates/exploded-aar/com.android.support/support-media-compat/25.1.0/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="f02263e35e52668dd17b73bf961437e3d562b35f">
-        <dex dex="/Users/kacper/Documents/Workspace/Android/Popular-Movies/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-media-compat-25.1.0_f84a2b4314c17318df179e0d36f38004f19829e1/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
         jar="/Users/kacper/.gradle/caches/modules-2/files-2.1/com.google.code.gson/gson/2.8.0/c4ba5371a29ac9b2ad6129b1d39ea38750043eff/gson-2.8.0.jar"
         jumboMode="true"
         optimize="true"
@@ -147,12 +93,12 @@
     </item>
     <item
         is-multidex="true"
-        jar="/Users/kacper/.gradle/caches/modules-2/files-2.1/com.squareup.okio/okio/1.0.1/39eff75ddcb987ff65888361a29f489c178429a3/okio-1.0.1.jar"
+        jar="/Users/kacper/Documents/Workspace/Android/Popular-Movies/app/build/intermediates/exploded-aar/com.android.volley/volley/1.0.0/jars/classes.jar"
         jumboMode="true"
         optimize="true"
         revision="25.0.2"
-        sha1="39eff75ddcb987ff65888361a29f489c178429a3">
-        <dex dex="/Users/kacper/Documents/Workspace/Android/Popular-Movies/app/build/intermediates/transforms/dex/debug/folders/1000/10/okio-1.0.1_d4350056a8456704ba4537db3a9dc6664f28a2ec/classes.dex" />
+        sha1="2cd4b982617e544728de0782d718a58ce1b06e3f">
+        <dex dex="/Users/kacper/Documents/Workspace/Android/Popular-Movies/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.volley-volley-1.0.0_f5455c34f3d24addbe10e2386fd5157660994c1c/classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -162,6 +108,69 @@
         revision="25.0.2"
         sha1="1630658fbc2d222b988603c27b4a4249586fbfe7">
         <dex dex="/Users/kacper/Documents/Workspace/Android/Popular-Movies/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-appcompat-v7-25.1.0_82161b4b986d75d937f39a3f3c9d82cf9fb142db/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/kacper/Documents/Workspace/Android/Popular-Movies/app/build/intermediates/exploded-aar/com.android.support/support-v4/25.1.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
+        <dex dex="/Users/kacper/Documents/Workspace/Android/Popular-Movies/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-v4-25.1.0_9ec9e146b429b022533e176aa9c19a61d0f87a2f/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/kacper/Documents/Workspace/Android/Popular-Movies/app/build/intermediates/exploded-aar/com.android.support/support-vector-drawable/25.1.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="e79aa3d9a16f8c9f16377c0608de70a8f31e5d80">
+        <dex dex="/Users/kacper/Documents/Workspace/Android/Popular-Movies/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-vector-drawable-25.1.0_71e96fb6dd91954a0333f5195ca6a5eb0ed60ff3/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/kacper/Documents/Workspace/Android/Popular-Movies/app/build/intermediates/exploded-aar/com.jakewharton/butterknife/8.4.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="a07818a1ecabdb149998823429cce555af4b9cba">
+        <dex dex="/Users/kacper/Documents/Workspace/Android/Popular-Movies/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.jakewharton-butterknife-8.4.0_4c22681c30869b309b8cbc2b05d2418f5ef385d3/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/kacper/Documents/Workspace/Android/Popular-Movies/app/build/intermediates/exploded-aar/com.android.support/support-core-utils/25.1.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="0a0ef86b7fa568a52bf6214a0326ca1f1d618da7">
+        <dex dex="/Users/kacper/Documents/Workspace/Android/Popular-Movies/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-core-utils-25.1.0_63beaea1bd53cd7b20fc844ca199bffc0f2571a3/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/kacper/Documents/Workspace/Android/Popular-Movies/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="2ec0f856670a06183bf62e342c072df156fa9d31">
+        <dex dex="/Users/kacper/Documents/Workspace/Android/Popular-Movies/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run_7d78df59c30a4eab695a1336c81de2913a8ec176/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/kacper/Documents/Workspace/Android/Popular-Movies/app/build/intermediates/exploded-aar/com.android.support/support-media-compat/25.1.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="f02263e35e52668dd17b73bf961437e3d562b35f">
+        <dex dex="/Users/kacper/Documents/Workspace/Android/Popular-Movies/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-media-compat-25.1.0_f84a2b4314c17318df179e0d36f38004f19829e1/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/kacper/.gradle/caches/modules-2/files-2.1/com.squareup.okio/okio/1.0.1/39eff75ddcb987ff65888361a29f489c178429a3/okio-1.0.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="39eff75ddcb987ff65888361a29f489c178429a3">
+        <dex dex="/Users/kacper/Documents/Workspace/Android/Popular-Movies/app/build/intermediates/transforms/dex/debug/folders/1000/10/okio-1.0.1_d4350056a8456704ba4537db3a9dc6664f28a2ec/classes.dex" />
     </item>
     <item
         is-multidex="true"

@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity implements PosterAdapter.Pos
             errorText.setText(R.string.error_message);
             posterAdapter.setAllMoviesOnPage(null);
             showMovieData();
-            new FetchMovieTask(this).execute(actualSortingOrder);
+            new FetchMovieVolley(this).getRequest(actualSortingOrder);
 
         }
         else{
@@ -130,8 +130,11 @@ public class MainActivity extends AppCompatActivity implements PosterAdapter.Pos
     }
     @Override
     public void showProgressBar(boolean show){
-        if(show)
+        if(show) {
             progressBar.setVisibility(View.VISIBLE);
+            errorText.setVisibility(View.INVISIBLE);
+            postersMovieRecyclerView.setVisibility(View.INVISIBLE);
+        }
         else
             progressBar.setVisibility(View.INVISIBLE);
     }
