@@ -7,6 +7,7 @@ Present the user with a grid arrangement of movie posters upon launch.
 Allow your user to change sort order via a setting:  
     * The sort order can be by most popular or by highest-rated  
     * Allow the user to tap on a movie poster and transition to a details screen with additional movie information  
+<b>
 
 ## Getting Started
 
@@ -21,6 +22,8 @@ App uses The Movie Database API. To connect to it you have to enter unique API k
 ## Libraries
 
 * [Picasso](http://square.github.io/picasso/)
+* [Volley](https://github.com/google/volley)
+* [ButterKnife](https://github.com/JakeWharton/butterknife)
 
 ## License
 

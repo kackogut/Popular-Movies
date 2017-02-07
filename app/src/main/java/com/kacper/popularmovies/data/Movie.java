@@ -6,11 +6,11 @@ import android.os.Parcelable;
 
 public class Movie implements Parcelable{
 
-    String title;
-    String overwiew;
-    String averageRating;
-    String airDate;
-    String imageURI;
+    private String title;
+    private String overwiew;
+    private String averageRating;
+    private String airDate;
+    private String imageURI;
 
     public Movie(String title, String overwiew, String averageRating, String airDate, String imageURI) {
         this.title = title;

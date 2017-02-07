@@ -5,13 +5,11 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,13 +19,6 @@ import android.widget.TextView;
 import com.kacper.popularmovies.adapter.PosterAdapter;
 import com.kacper.popularmovies.data.Movie;
 import com.kacper.popularmovies.enums.SortingOrder;
-import com.kacper.popularmovies.utilities.JSONutils;
-import com.kacper.popularmovies.utilities.NetworkUtils;
-
-import org.json.JSONException;
-
-import java.io.IOException;
-import java.net.URL;
 import java.util.ArrayList;
 
 import butterknife.BindView;
@@ -40,8 +31,6 @@ public class MainActivity extends AppCompatActivity implements PosterAdapter.Pos
     @BindView(R.id.loading_indicator) ProgressBar progressBar;
     private SortingOrder actualSortingOrder=SortingOrder.POPULARITY_DESCENDING;
     private PosterAdapter posterAdapter;
-
-    boolean apiWrong = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

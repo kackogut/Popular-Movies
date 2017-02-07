@@ -1,8 +1,5 @@
 package com.kacper.popularmovies;
 
-import android.app.DownloadManager;
-import android.net.Uri;
-
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.kacper.popularmovies.data.Movie;
@@ -30,7 +27,7 @@ public class FetchMovieVolley {
         URL urlToFech = NetworkUtils.buildBaseURL(sortingOrder);
         movies = new ArrayList<Movie>();
         
-        final JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(urlToFech.toString(),
+        new JsonArrayRequest(urlToFech.toString(),
                 new com.android.volley.Response.Listener<JSONArray>(){
                     @Override
                     public void onResponse(JSONArray response) {

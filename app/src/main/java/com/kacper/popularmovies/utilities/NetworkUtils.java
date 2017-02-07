@@ -26,14 +26,14 @@ import java.util.Scanner;
 
 public final class NetworkUtils {
     //TODO Insert your API key here
-    final static String DATABASE_API_KEY = "";
-    final static String URI_PARAM_API_KEY = "api_key";
+    private final static String DATABASE_API_KEY = "";
+    private final static String URI_PARAM_API_KEY = "api_key";
 
-    final static String BASE_URL = "http://api.themoviedb.org/3/movie";
-    final static String IMAGE_URL = "http://image.tmdb.org/t/p/";
+    private final static String BASE_URL = "http://api.themoviedb.org/3/movie";
+    private final static String IMAGE_URL = "http://image.tmdb.org/t/p/";
 
-    final static String URI_PARAM_PAGE = "page";
-    final static String PAGE_TO_LOAD = "1";
+    private final static String URI_PARAM_PAGE = "page";
+    private final static String PAGE_TO_LOAD = "1";
 
 
     public static URL buildBaseURL(SortingOrder sortBy){
