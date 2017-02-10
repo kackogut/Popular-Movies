@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity implements PosterAdapter.Pos
             errorText.setText(R.string.error_message);
             posterAdapter.setAllMoviesOnPage(null);
             showMovieData();
-            new FetchMovieVolley(this).getRequest(actualSortingOrder,this);
+            new FetchMovieVolley(this).getRequest(actualSortingOrder);
 
         }
         else{
