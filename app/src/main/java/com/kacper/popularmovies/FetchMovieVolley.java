@@ -1,7 +1,13 @@
 package com.kacper.popularmovies;
 
+import android.content.Context;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.kacper.popularmovies.data.Movie;
 import com.kacper.popularmovies.enums.SortingOrder;
 import com.kacper.popularmovies.utilities.JSONutils;
@@ -9,6 +15,7 @@ import com.kacper.popularmovies.utilities.NetworkUtils;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -18,19 +25,21 @@ import java.util.ArrayList;
 public class FetchMovieVolley {
     private ArrayList<Movie> movies;
     private ThreadToUIListener UIListener;
+    private Context context;
 
-    public FetchMovieVolley(ThreadToUIListener UIListener) {
+    public FetchMovieVolley(ThreadToUIListener UIListener, Context context) {
         this.UIListener = UIListener;
+        this.context=context;
     }
     public void getRequest(SortingOrder sortingOrder){
         UIListener.showProgressBar(true);
         URL urlToFech = NetworkUtils.buildBaseURL(sortingOrder);
         movies = new ArrayList<Movie>();
         
-        new JsonArrayRequest(urlToFech.toString(),
-                new com.android.volley.Response.Listener<JSONArray>(){
+        JsonObjectRequest req = new JsonObjectRequest(Request.Method.GET,urlToFech.toString(), null,
+                new com.android.volley.Response.Listener<JSONObject>(){
                     @Override
-                    public void onResponse(JSONArray response) {
+                    public void onResponse(JSONObject response) {
                         try {
                             movies = JSONutils.getAllMovies(response.toString());
                             UIListener.showProgressBar(false);
@@ -48,5 +57,9 @@ public class FetchMovieVolley {
                         UIListener.showErrorMessage("Error");
                     }
                 });
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
+
+        requestQueue.add(req);
+
     }
 }
