@@ -26,7 +26,7 @@ import java.util.Scanner;
 
 public final class NetworkUtils {
     //TODO Insert your API key here
-    private final static String DATABASE_API_KEY = "";
+    private final static String DATABASE_API_KEY = "1b3b9548d91f435353124aca0bf72f7e";
     private final static String URI_PARAM_API_KEY = "api_key";
 
     private final static String BASE_URL = "http://api.themoviedb.org/3/movie";
