@@ -54,7 +54,7 @@ public class FetchMovieVolley {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         UIListener.showProgressBar(false);
-                        UIListener.showErrorMessage("Error");
+                        UIListener.showErrorMessage("Insert valid Api Key");
                     }
                 });
         RequestQueue requestQueue = Volley.newRequestQueue(context);

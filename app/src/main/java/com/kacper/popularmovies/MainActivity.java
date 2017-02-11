@@ -26,11 +26,11 @@ import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity implements PosterAdapter.PosterAdapterOnClickHandler, ThreadToUIListener{
 
-    @BindView(R.id.poster_recycle_view) RecyclerView postersMovieRecyclerView;
-    @BindView(R.id.error_text) TextView errorText;
-    @BindView(R.id.loading_indicator) ProgressBar progressBar;
-    private SortingOrder actualSortingOrder=SortingOrder.POPULARITY_DESCENDING;
-    private PosterAdapter posterAdapter;
+    @BindView(R.id.poster_recycle_view) RecyclerView mPostersMovieRecyclerView;
+    @BindView(R.id.error_text) TextView mErrorText;
+    @BindView(R.id.loading_indicator) ProgressBar mMoviesLoadingProgress;
+    private SortingOrder mActualSortingOrder =SortingOrder.POPULARITY_DESCENDING;
+    private PosterAdapter mPosterAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,23 +42,22 @@ public class MainActivity extends AppCompatActivity implements PosterAdapter.Pos
             gridLayoutManager = new GridLayoutManager(this,2);
         else
             gridLayoutManager = new GridLayoutManager(this,4);
-        postersMovieRecyclerView.setLayoutManager(gridLayoutManager);
-        postersMovieRecyclerView.setHasFixedSize(true);
-        posterAdapter = new PosterAdapter(this,this);
-        postersMovieRecyclerView.setAdapter(posterAdapter);
+        mPostersMovieRecyclerView.setLayoutManager(gridLayoutManager);
+        mPostersMovieRecyclerView.setHasFixedSize(true);
+        mPosterAdapter = new PosterAdapter(this,this);
+        mPostersMovieRecyclerView.setAdapter(mPosterAdapter);
         loadData();
     }
 
     private void loadData(){
         if(isOnline()) {
-            errorText.setText(R.string.error_message);
-            posterAdapter.setAllMoviesOnPage(null);
-            showMovieData();
-            new FetchMovieVolley(this,this).getRequest(actualSortingOrder);
+            mErrorText.setText(R.string.error_message);
+            mPosterAdapter.setAllMoviesOnPage(null);
+            new FetchMovieVolley(this,this).getRequest(mActualSortingOrder);
 
         }
         else{
-            errorText.setText(R.string.internet_error);
+            mErrorText.setText(R.string.internet_error);
             showErrorMessage(null);
         }
 
@@ -81,12 +80,12 @@ public class MainActivity extends AppCompatActivity implements PosterAdapter.Pos
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.order_popular:
-                actualSortingOrder=SortingOrder.POPULARITY_DESCENDING;
+                mActualSortingOrder =SortingOrder.POPULARITY_DESCENDING;
                 loadData();
                 item.setChecked(true);
                 return true;
             case R.id.order_top_rated:
-                actualSortingOrder=SortingOrder.RATING_DESCENDING;
+                mActualSortingOrder =SortingOrder.RATING_DESCENDING;
                 loadData();
                 item.setChecked(true);
                 return true;
@@ -107,30 +106,30 @@ public class MainActivity extends AppCompatActivity implements PosterAdapter.Pos
 
     @Override
     public void showMovieData(){
-        errorText.setVisibility(View.INVISIBLE);
-        postersMovieRecyclerView.setVisibility(View.VISIBLE);
+        mErrorText.setVisibility(View.INVISIBLE);
+        mPostersMovieRecyclerView.setVisibility(View.VISIBLE);
     }
     @Override
     public void showErrorMessage(String message){
         if(message!=null)
-            errorText.setText(message);
-        errorText.setVisibility(View.VISIBLE);
-        postersMovieRecyclerView.setVisibility(View.INVISIBLE);
+            mErrorText.setText(message);
+        mErrorText.setVisibility(View.VISIBLE);
+        mPostersMovieRecyclerView.setVisibility(View.INVISIBLE);
     }
     @Override
     public void showProgressBar(boolean show){
         if(show) {
-            progressBar.setVisibility(View.VISIBLE);
-            errorText.setVisibility(View.INVISIBLE);
-            postersMovieRecyclerView.setVisibility(View.INVISIBLE);
+            mMoviesLoadingProgress.setVisibility(View.VISIBLE);
+            mErrorText.setVisibility(View.INVISIBLE);
+            mPostersMovieRecyclerView.setVisibility(View.INVISIBLE);
         }
         else
-            progressBar.setVisibility(View.INVISIBLE);
+            mMoviesLoadingProgress.setVisibility(View.INVISIBLE);
     }
 
     @Override
     public void setMoviesToAdapter(ArrayList movies) {
-        posterAdapter.setAllMoviesOnPage(movies);
+        mPosterAdapter.setAllMoviesOnPage(movies);
     }
 
     public boolean isOnline() {

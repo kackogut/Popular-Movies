@@ -21,9 +21,9 @@ App uses The Movie Database API. To connect to it you have to enter unique API k
 
 ## Libraries
 
-    * [Picasso](http://square.github.io/picasso/)
-    * [Volley](https://github.com/google/volley)
-    * [ButterKnife](https://github.com/JakeWharton/butterknife)
+* [Picasso](http://square.github.io/picasso/)
+* [Volley](https://github.com/google/volley)
+* [ButterKnife](https://github.com/JakeWharton/butterknife)
 
 ## License
 
