@@ -5,15 +5,12 @@ import android.content.Context;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.kacper.popularmovies.data.Movie;
-import com.kacper.popularmovies.enums.SortingOrder;
 import com.kacper.popularmovies.utilities.JSONutils;
 import com.kacper.popularmovies.utilities.NetworkUtils;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -31,7 +28,7 @@ public class FetchMovieVolley {
         this.UIListener = UIListener;
         this.context=context;
     }
-    public void getRequest(SortingOrder sortingOrder){
+    public void getRequest(String sortingOrder){
         UIListener.showProgressBar(true);
         URL urlToFech = NetworkUtils.buildBaseURL(sortingOrder);
         movies = new ArrayList<Movie>();

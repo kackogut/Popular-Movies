@@ -9,7 +9,6 @@ import android.widget.ImageView;
 
 import com.kacper.popularmovies.R;
 import com.kacper.popularmovies.data.Movie;
-import com.kacper.popularmovies.enums.ImageSizes;
 import com.kacper.popularmovies.utilities.NetworkUtils;
 
 import java.net.URL;
@@ -50,7 +49,7 @@ public class PosterAdapter extends RecyclerView.Adapter<PosterAdapter.PosterAdap
         }
         public void bind(){
             if(allMoviesOnPage.size()>0) {
-                URL imageUrl = NetworkUtils.buildImageURL(allMoviesOnPage.get(getAdapterPosition()).getImageURI(), ImageSizes.MEDIUM);
+                URL imageUrl = NetworkUtils.buildImageURL(allMoviesOnPage.get(getAdapterPosition()).getImageURI(), NetworkUtils.MEDIUM_SIZE_POSTER);
                 Picasso.with(context).load(imageUrl.toString()).into(singlePosterImage);
             }
         }

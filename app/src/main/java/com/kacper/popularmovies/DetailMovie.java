@@ -8,7 +8,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.kacper.popularmovies.data.Movie;
-import com.kacper.popularmovies.enums.ImageSizes;
 import com.kacper.popularmovies.utilities.NetworkUtils;
 
 import java.net.URL;
@@ -42,7 +41,7 @@ public class DetailMovie extends AppCompatActivity{
                     airDate.setText(movie.getAirDate().substring(0, 4));
                 else
                     airDate.setText("Unknown");
-                URL imageURL = NetworkUtils.buildImageURL(movie.getImageURI(), ImageSizes.MEDIUM);
+                URL imageURL = NetworkUtils.buildImageURL(movie.getImageURI(), NetworkUtils.MEDIUM_SIZE_POSTER);
                 Picasso.with(this).load(imageURL.toString()).into(poster);
             }
         }

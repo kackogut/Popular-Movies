@@ -18,7 +18,8 @@ import android.widget.TextView;
 
 import com.kacper.popularmovies.adapter.PosterAdapter;
 import com.kacper.popularmovies.data.Movie;
-import com.kacper.popularmovies.enums.SortingOrder;
+import com.kacper.popularmovies.utilities.NetworkUtils;
+
 import java.util.ArrayList;
 
 import butterknife.BindView;
@@ -29,13 +30,14 @@ public class MainActivity extends AppCompatActivity implements PosterAdapter.Pos
     @BindView(R.id.poster_recycle_view) RecyclerView mPostersMovieRecyclerView;
     @BindView(R.id.error_text) TextView mErrorText;
     @BindView(R.id.loading_indicator) ProgressBar mMoviesLoadingProgress;
-    private SortingOrder mActualSortingOrder =SortingOrder.POPULARITY_DESCENDING;
+    private String mActualSortingOrder;
     private PosterAdapter mPosterAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        mActualSortingOrder = NetworkUtils.SORTING_POPULARITY;
         ButterKnife.bind(this);
         GridLayoutManager gridLayoutManager;
         if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT)
@@ -80,12 +82,12 @@ public class MainActivity extends AppCompatActivity implements PosterAdapter.Pos
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.order_popular:
-                mActualSortingOrder =SortingOrder.POPULARITY_DESCENDING;
+                mActualSortingOrder =NetworkUtils.SORTING_POPULARITY;
                 loadData();
                 item.setChecked(true);
                 return true;
             case R.id.order_top_rated:
-                mActualSortingOrder =SortingOrder.RATING_DESCENDING;
+                mActualSortingOrder =NetworkUtils.SORTING_RATING;
                 loadData();
                 item.setChecked(true);
                 return true;
