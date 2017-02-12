@@ -140,4 +140,10 @@ public class MainActivity extends AppCompatActivity implements PosterAdapter.Pos
         NetworkInfo netInfo = cm.getActiveNetworkInfo();
         return netInfo != null && netInfo.isConnectedOrConnecting();
     }
+
+    @Override
+    protected void onDestroy() {
+        //TODO: Clear connection and close lifecycle
+        super.onDestroy();
+    }
 }

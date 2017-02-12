@@ -21,10 +21,10 @@ public class MoviesDBHelper extends SQLiteOpenHelper {
         final String CREATE_DB =
                     "CREATE TABLE "+MoviesDBContract.MovieEntry.TABLE_NAME +" (" +
                             MoviesDBContract.MovieEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                            MoviesDBContract.MovieEntry.COLUMN_TITLE + " TEXT NOT NULL "+
                             MoviesDBContract.MovieEntry.COLUMN_OVERWIEW + " TEXT NOT NULL "+
                             MoviesDBContract.MovieEntry.COLUMN_POSTER + " TEXT "+
-                            MoviesDBContract.MovieEntry.COLUMN_FAVOURITED + " INTEGER NOT NULL "+ ");";
+                            MoviesDBContract.MovieEntry.COLUMN_FAVOURITED + " INTEGER NOT NULL "+
+                            " UNIQUE (" + MoviesDBContract.MovieEntry.COLUMN_TITLE + ") ON CONFLICT REPLACE);";
 
         sqLiteDatabase.execSQL(CREATE_DB);
     }

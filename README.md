@@ -9,6 +9,11 @@ Allow your user to change sort order via a setting:
     * Allow the user to tap on a movie poster and transition to a details screen with additional movie information  
     * Movies have to appear in Recycler View  
 
+Features that will be soon implemented on Stage 2:
+    * Allow users to view and play trailers ( either in the youtube app or a web browser), and allow read reviews of a selected movie.
+    * Users can mark a movie as a favorite in the details view by tapping a button (star). This is for a local movies collection that will be maintained and does not require an API request.
+    * App would be optimized for tabled experience.
+
 ## Getting Started
 
 App uses The Movie Database API. To connect to it you have to enter unique API key. You can create it here: https://www.themoviedb.org/account/signup?language=en-EN , and then paste it to code marked with TODO.
