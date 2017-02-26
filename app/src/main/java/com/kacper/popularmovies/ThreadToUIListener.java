@@ -11,4 +11,5 @@ public interface ThreadToUIListener {
     void showErrorMessage(String message);
     void showProgressBar(boolean showOrNot);
     void setMoviesToAdapter(ArrayList movies);
+
 }

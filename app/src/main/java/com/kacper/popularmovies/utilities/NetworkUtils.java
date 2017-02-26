@@ -27,6 +27,10 @@ public final class NetworkUtils {
 
     public final static String MEDIUM_SIZE_POSTER = "w500";
 
+    private final static String VIDEO = "videos";
+
+    private final static String REVIEWS = "reviews";
+
 
     public static URL buildBaseURL(String sortBy){
         Uri uriToUrl = Uri.parse(BASE_URL).buildUpon()
@@ -46,6 +50,23 @@ public final class NetworkUtils {
     }
 
 
+    public static URL buildTrailerURI(String imageID){
+        Uri uri = Uri.parse(BASE_URL).buildUpon()
+                .appendPath(imageID)
+                .appendPath(VIDEO)
+                .appendQueryParameter(URI_PARAM_API_KEY,DATABASE_API_KEY).build();
+        Log.v("URL  ",uri.toString());
+        return getURLfromUri(uri);
+    }
+
+    public static URL buildReviewsURI(String movieID){
+        Uri uri = Uri.parse(BASE_URL).buildUpon()
+                .appendPath(movieID)
+                .appendPath(REVIEWS)
+                .appendQueryParameter(URI_PARAM_API_KEY,DATABASE_API_KEY).build();
+        return getURLfromUri(uri);
+
+    }
     private static URL getURLfromUri(Uri uri){
         URL buildedURL = null;
         try {
@@ -55,5 +76,7 @@ public final class NetworkUtils {
         }
         return buildedURL;
     }
+
+
 
 }

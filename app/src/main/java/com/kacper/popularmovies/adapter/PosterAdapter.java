@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.kacper.popularmovies.R;
-import com.kacper.popularmovies.data.Movie;
+import com.kacper.popularmovies.data.model.Movie;
 import com.kacper.popularmovies.utilities.NetworkUtils;
 
 import java.net.URL;

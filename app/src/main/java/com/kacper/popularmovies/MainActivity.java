@@ -17,7 +17,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.kacper.popularmovies.adapter.PosterAdapter;
-import com.kacper.popularmovies.data.Movie;
+import com.kacper.popularmovies.data.model.Movie;
 import com.kacper.popularmovies.utilities.NetworkUtils;
 
 import java.util.ArrayList;
