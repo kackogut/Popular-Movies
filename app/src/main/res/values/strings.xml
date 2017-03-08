@@ -8,5 +8,6 @@
     <string name="main_menu_name">Sorting Order</string>
     <string name="order_by_popular">Popular Descending</string>
     <string name="order_by_rating">Rating Descending</string>
+    <string name="favourited_movies">Favourited Movies</string>
     <string name="reviews_text">Reviews</string>
 </resources>

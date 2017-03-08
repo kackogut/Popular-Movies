@@ -23,7 +23,10 @@ public class MoviesDBContract {
         public static final String COLUMN_OVERWIEW = "overwiew";
         public static final String COLUMN_FAVOURITED = "favourite";
         public static final String COLUMN_POSTER = "poster";
+        public static final String MOVIE_SERVER_ID = "id";
+        public static final String COLUMN_AIR_DATE = "air";
 
     }
+
 
 }

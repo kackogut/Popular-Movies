@@ -4,7 +4,7 @@
     android:id="@+id/activity_movie_details"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".DetailMovie">
+    tools:context=".ui.DetailMovie">
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -50,12 +50,20 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/trailer1"
-                android:onClick="playTrailer"/>
+                android:onClick="playTrailer"
+                android:text="PLAY TRAILER 1"/>
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/trailer2"
-                android:onClick="playTrailer"/>
+                android:onClick="playTrailer"
+                android:text="PLAY TRAILER 2"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/add_to_favourites_button"
+                android:onClick="addToFavourites"
+                android:text="ADD TO FAVOURITES"/>
         </LinearLayout>
 
     </LinearLayout>

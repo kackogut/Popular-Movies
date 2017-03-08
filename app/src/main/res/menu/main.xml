@@ -11,6 +11,8 @@
                     android:title="@string/order_by_popular" android:checked="true" />
                 <item android:id="@+id/order_top_rated"
                     android:title="@string/order_by_rating" />
+                <item android:id="@+id/favourite_movies"
+                    android:title="@string/favourited_movies" />
             </group>
         </menu>
     </item>

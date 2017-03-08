@@ -12,6 +12,7 @@ public class Movie implements Parcelable{
     private String airDate;
     private String imageURI;
     private String movieId;
+    private boolean isFavourited;
 
     public Movie(String title, String overwiew, String averageRating, String airDate, String imageURI, String movieId) {
         this.title = title;
