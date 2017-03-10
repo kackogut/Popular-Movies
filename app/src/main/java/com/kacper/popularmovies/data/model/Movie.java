@@ -75,4 +75,12 @@ public class Movie implements Parcelable{
     public String getMovieId() {
         return movieId;
     }
+
+    public boolean isFavourited() {
+        return isFavourited;
+    }
+
+    public void setFavourited(boolean favourited) {
+        isFavourited = favourited;
+    }
 }

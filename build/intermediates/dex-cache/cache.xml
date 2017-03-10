@@ -52,7 +52,7 @@
         jumboMode="true"
         optimize="true"
         revision="25.0.2"
-        sha1="81604359b43eb0b101490820f087b91b991cbfd5">
+        sha1="73956d7689df83ce5ec11b4171000aa51206992f">
         <dex dex="/Users/kacper/Documents/Workspace/Android/Popular-Movies/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_732b92299e34110e5f142a9e698b0cea939510e5/classes.dex" />
     </item>
     <item
@@ -169,7 +169,7 @@
         jumboMode="true"
         optimize="true"
         revision="25.0.2"
-        sha1="198253e77dd737b8d2883a3b7ccd63b02b70e99a">
+        sha1="5fb98d2b4372c4c5d8fef5d72d307c28f7c88d3f">
         <dex dex="/Users/kacper/Documents/Workspace/Android/Popular-Movies/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run_7d78df59c30a4eab695a1336c81de2913a8ec176/classes.dex" />
     </item>
     <item

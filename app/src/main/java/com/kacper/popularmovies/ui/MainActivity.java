@@ -134,6 +134,7 @@ public class MainActivity extends AppCompatActivity implements NetworkMoviesAdap
         Context context = this;
         Class destinationClass = DetailMovie.class;
         Intent intentToStartDetailMovie = new Intent(context, destinationClass);
+
         intentToStartDetailMovie.putExtra("movie",clickedMovie);
         startActivity(intentToStartDetailMovie);
     }

@@ -2,13 +2,16 @@ package com.kacper.popularmovies.ui;
 
 import android.content.ContentValues;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -29,6 +32,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import it.sephiroth.android.library.picasso.Picasso;
 
+import static com.kacper.popularmovies.data.provider.MoviesDBContract.MovieEntry.TABLE_NAME;
+
 
 public class DetailMovie extends AppCompatActivity implements DetailedMovieListener {
 
@@ -38,6 +43,8 @@ public class DetailMovie extends AppCompatActivity implements DetailedMovieListe
     @BindView(R.id.rating) TextView rating;
     @BindView(R.id.air_date) TextView airDate;
     @BindView(R.id.base_view) LinearLayout linearLayout;
+    @BindView(R.id.add_to_favourites_button)
+    Button favouritedButton;
 
 
     private ArrayList<String> mTrailerURLs;
@@ -63,6 +70,11 @@ public class DetailMovie extends AppCompatActivity implements DetailedMovieListe
                 FetchMovieVolley fetchMovieVolley = new FetchMovieVolley(this,this);
                 fetchMovieVolley.trailersRequest(mMovie.getMovieId());
                 fetchMovieVolley.reviewRequest(mMovie.getMovieId());
+
+                    if(checkIfMovieExistInDatabase(mMovie.getMovieId())){
+                        mMovie.setFavourited(true);
+                        favouritedButton.setText("Delete from favourites");
+                    }
             }
         }
     }
@@ -103,19 +115,41 @@ public class DetailMovie extends AppCompatActivity implements DetailedMovieListe
             startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(tmp)));
     }
     public void addToFavourites(View view){
-        ContentValues contentValues = new ContentValues();
+        if(!mMovie.isFavourited()) {
+            ContentValues contentValues = new ContentValues();
+            contentValues.put(MoviesDBContract.MovieEntry.MOVIE_SERVER_ID, mMovie.getMovieId());
+            contentValues.put(MoviesDBContract.MovieEntry.COLUMN_OVERWIEW, mMovie.getOverwiew());
+            contentValues.put(MoviesDBContract.MovieEntry.COLUMN_POSTER, mMovie.getImageURI());
+            contentValues.put(MoviesDBContract.MovieEntry.COLUMN_TITLE, mMovie.getTitle());
+            contentValues.put(MoviesDBContract.MovieEntry.COLUMN_RATING, mMovie.getAverageRating());
+            contentValues.put(MoviesDBContract.MovieEntry.COLUMN_AIR_DATE, mMovie.getAirDate());
 
-        contentValues.put(MoviesDBContract.MovieEntry.MOVIE_SERVER_ID,mMovie.getMovieId());
-        contentValues.put(MoviesDBContract.MovieEntry.COLUMN_OVERWIEW,mMovie.getOverwiew());
-        contentValues.put(MoviesDBContract.MovieEntry.COLUMN_POSTER,mMovie.getImageURI());
-        contentValues.put(MoviesDBContract.MovieEntry.COLUMN_TITLE,mMovie.getTitle());
-        contentValues.put(MoviesDBContract.MovieEntry.COLUMN_RATING,mMovie.getAverageRating());
-        contentValues.put(MoviesDBContract.MovieEntry.COLUMN_AIR_DATE,mMovie.getAirDate());
+            Uri uri = getContentResolver().insert(MoviesDBContract.MovieEntry.CONTENT_URI, contentValues);
+            if (uri != null) {
+                mMovie.setFavourited(true);
+                favouritedButton.setText("Delete from favourites");
+            }
+        }else{
+            Uri uri = MoviesDBContract.MovieEntry.CONTENT_URI;
+            uri = uri.buildUpon().appendPath(mMovie.getMovieId()).build();
+            if(getContentResolver().delete(uri,null,null)>0){
+                mMovie.setFavourited(false);
+                favouritedButton.setText("Add to favourites");
+            }
+        }
 
-        Uri uri = getContentResolver().insert(MoviesDBContract.MovieEntry.CONTENT_URI, contentValues);
-        if(uri!=null)
-            Toast.makeText(getBaseContext(),uri.toString(),Toast.LENGTH_LONG).show();
-        finish();
     }
+
+    public boolean checkIfMovieExistInDatabase(String movieID) {
+        String[] columns = { MoviesDBContract.MovieEntry.MOVIE_SERVER_ID};
+        String selection = columns[0] + " =?";
+        String[] selectionArgs = { movieID };
+
+        Cursor cursor = getContentResolver().query(MoviesDBContract.MovieEntry.CONTENT_URI, columns, selection, selectionArgs, null);
+        boolean exists = (cursor.getCount() > 0);
+        cursor.close();
+        return exists;
+    }
+
 
 }

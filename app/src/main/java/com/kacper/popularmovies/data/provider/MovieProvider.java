@@ -6,6 +6,7 @@ import android.content.ContentValues;
 import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Movie;
 import android.net.Uri;
 import android.support.annotation.Nullable;
 
@@ -108,11 +109,36 @@ public class MovieProvider extends ContentProvider {
 
     @Override
     public int delete(Uri uri, String selection, String[] selectionArgs) {
-        return 0;
+        int numRowsDeleted;
+        switch (sUriMatcher.match(uri)){
+            case CODE_SINGLE_MOVIE:
+                String id = uri.getPathSegments().get(1);
+                numRowsDeleted = mOpenHelper.getWritableDatabase().delete(
+                        MoviesDBContract.MovieEntry.TABLE_NAME,
+                        "id=?",
+                        new String[]{id});
+                break;
+            default:
+                throw new UnsupportedOperationException("Unkown uri: "+uri);
+        }
+        if(numRowsDeleted!=0)
+            getContext().getContentResolver().notifyChange(uri,null);
+        return numRowsDeleted;
     }
 
     @Override
     public int update(Uri uri, ContentValues values, String selection, String[] selectionArgs) {
         return 0;
+    }
+    public boolean CheckIfMovieExistInDatabase(String movieID) {
+        final SQLiteDatabase db = mOpenHelper.getReadableDatabase();
+        String Query = "Select * from " + MoviesDBContract.MovieEntry.TABLE_NAME + " where " + MoviesDBContract.MovieEntry.MOVIE_SERVER_ID + " = " + movieID;
+        Cursor cursor = db.rawQuery(Query, null);
+        if(cursor.getCount() <= 0){
+            cursor.close();
+            return false;
+        }
+        cursor.close();
+        return true;
     }
 }
