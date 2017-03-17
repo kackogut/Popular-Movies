@@ -4,14 +4,21 @@ package com.kacper.popularmovies.data.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Movie implements Parcelable{
 
+    @SerializedName("original_title")
     private String title;
+    @SerializedName("overview")
     private String overwiew;
+    @SerializedName("vote_average")
     private String averageRating;
+    @SerializedName("release_date")
     private String airDate;
-    private String imageURI;
+    @SerializedName("id")
     private String movieId;
+    private String imageURI;
     private boolean isFavourited;
 
     public Movie(String title, String overwiew, String averageRating, String airDate, String imageURI, String movieId) {

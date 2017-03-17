@@ -62,6 +62,7 @@ public class MainActivity extends AppCompatActivity implements NetworkMoviesAdap
     public static final int INDEX_MOVIE_TITLE = 4;
     public static final int INDEX_MOVIE_OVERWIEW = 5;
     public static final int INDEX_AIR_DATE = 6;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -112,15 +113,18 @@ public class MainActivity extends AppCompatActivity implements NetworkMoviesAdap
         switch (item.getItemId()){
             case R.id.order_popular:
                 mActualSortingOrder =NetworkUtils.SORTING_POPULARITY;
+                getSupportActionBar().setTitle(getString(R.string.popular_toolbar_text));
                 loadData();
                 item.setChecked(true);
                 return true;
             case R.id.order_top_rated:
                 mActualSortingOrder =NetworkUtils.SORTING_RATING;
+                getSupportActionBar().setTitle(getString(R.string.rating_toolbar_text));
                 loadData();
                 item.setChecked(true);
                 return true;
             case R.id.favourite_movies:
+                getSupportActionBar().setTitle(getString(R.string.favourinted_toolbar_text));
                 item.setChecked(true);
                 getSupportLoaderManager().initLoader(ID_FAVOURITE_MOVIES_LOADER, null, this);
                 return true;
@@ -177,7 +181,6 @@ public class MainActivity extends AppCompatActivity implements NetworkMoviesAdap
 
     @Override
     protected void onDestroy() {
-        //TODO: Clear connection and close lifecycle
         super.onDestroy();
     }
 

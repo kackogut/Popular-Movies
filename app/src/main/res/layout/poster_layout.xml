@@ -5,9 +5,7 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="5dp"
+        android:padding="@dimen/poster_layout_padding"
         android:adjustViewBounds="true"
         android:id="@+id/single_poster"/>
-
-
 </FrameLayout>

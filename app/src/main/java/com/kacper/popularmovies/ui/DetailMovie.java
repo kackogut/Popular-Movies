@@ -7,9 +7,20 @@ import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.constraint.ConstraintLayout;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.content.res.ResourcesCompat;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -23,6 +34,8 @@ import com.kacper.popularmovies.data.model.Movie;
 import com.kacper.popularmovies.data.provider.MoviesDBContract;
 import com.kacper.popularmovies.listeners.DetailedMovieListener;
 import com.kacper.popularmovies.utilities.NetworkUtils;
+
+import org.w3c.dom.Text;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -42,9 +55,15 @@ public class DetailMovie extends AppCompatActivity implements DetailedMovieListe
     @BindView(R.id.movie_title) TextView title;
     @BindView(R.id.rating) TextView rating;
     @BindView(R.id.air_date) TextView airDate;
-    @BindView(R.id.base_view) LinearLayout linearLayout;
+    @BindView(R.id.trailer1) Button playTrailer1;
+    @BindView(R.id.trailer2) Button playTrailer2;
+    @BindView(R.id.reviews_text)
+    TextView reviewsText;
+    @BindView(R.id.reviews_view)
+    LinearLayout linearLayout;
     @BindView(R.id.add_to_favourites_button)
-    Button favouritedButton;
+    ImageView favouritedButton;
+
 
 
     private ArrayList<String> mTrailerURLs;
@@ -53,9 +72,10 @@ public class DetailMovie extends AppCompatActivity implements DetailedMovieListe
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.movie_detail);
+        setContentView(R.layout.movie_details_fragment);
         ButterKnife.bind(this);
         Intent intentThatStartedActivity = getIntent();
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
         if(intentThatStartedActivity!=null) {
             Bundle data = getIntent().getExtras();
             mMovie =  data.getParcelable("movie");
@@ -73,7 +93,7 @@ public class DetailMovie extends AppCompatActivity implements DetailedMovieListe
 
                     if(checkIfMovieExistInDatabase(mMovie.getMovieId())){
                         mMovie.setFavourited(true);
-                        favouritedButton.setText("Delete from favourites");
+                        setHeartImage(true);
                     }
             }
         }
@@ -83,11 +103,34 @@ public class DetailMovie extends AppCompatActivity implements DetailedMovieListe
     @Override
     public void setTrailersURLs(ArrayList<String> trailers) {
         mTrailerURLs = trailers;
+        if(mTrailerURLs.size()<1)
+            playTrailer1.setVisibility(View.INVISIBLE);
+        if(mTrailerURLs.size()<2)
+            playTrailer2.setVisibility(View.INVISIBLE);
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.detailed_movie_menu,menu);
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId()==R.id.share_youtube_link){
+            Intent sendIntent = new Intent();
+            sendIntent.setAction(Intent.ACTION_SEND);
+            sendIntent.putExtra(Intent.EXTRA_TEXT, mTrailerURLs.get(0));
+            sendIntent.setType("text/plain");
+            startActivity(sendIntent);
+            return true;
+        }else
+            return false;
+    }
+    @Override
     public void setReviews(HashMap<String, String> reviews) {
 
+        if(reviews.isEmpty())
+            reviewsText.setVisibility(View.INVISIBLE);
         for(String key:reviews.keySet()){
             TextView textView = new TextView(this);
             TextView textView2 = new TextView(this);
@@ -98,7 +141,6 @@ public class DetailMovie extends AppCompatActivity implements DetailedMovieListe
             textView2.setTextSize(18);
             textView.setPadding(30,30,30,30);
             textView2.setPadding(30,30,30,30);
-            textView2.setGravity(Gravity.RIGHT);
             textView.setText(reviews.get(key));
             linearLayout.addView(textView);
             linearLayout.addView(textView2);
@@ -127,14 +169,14 @@ public class DetailMovie extends AppCompatActivity implements DetailedMovieListe
             Uri uri = getContentResolver().insert(MoviesDBContract.MovieEntry.CONTENT_URI, contentValues);
             if (uri != null) {
                 mMovie.setFavourited(true);
-                favouritedButton.setText("Delete from favourites");
+                setHeartImage(true);
             }
         }else{
             Uri uri = MoviesDBContract.MovieEntry.CONTENT_URI;
             uri = uri.buildUpon().appendPath(mMovie.getMovieId()).build();
             if(getContentResolver().delete(uri,null,null)>0){
                 mMovie.setFavourited(false);
-                favouritedButton.setText("Add to favourites");
+                setHeartImage(false);
             }
         }
 
@@ -149,6 +191,12 @@ public class DetailMovie extends AppCompatActivity implements DetailedMovieListe
         boolean exists = (cursor.getCount() > 0);
         cursor.close();
         return exists;
+    }
+    private void setHeartImage(boolean filled){
+        if(filled)
+            favouritedButton.setImageResource(R.drawable.hearts_filled_50);
+           else
+            favouritedButton.setImageResource(R.drawable.hearts_hollow_50);
     }
 
 

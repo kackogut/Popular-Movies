@@ -8,10 +8,10 @@ Allow your user to change sort order via a setting:
     * The sort order can be by most popular or by highest-rated  
     * Allow the user to tap on a movie poster and transition to a details screen with additional movie information  
     * Movies have to appear in Recycler View  
-
-Features that will be soon implemented on Stage 2:
     * Allow users to view and play trailers ( either in the youtube app or a web browser), and allow read reviews of a selected movie.
-    * Users can mark a movie as a favorite in the details view by tapping a button (star). This is for a local movies collection that will be maintained and does not require an API request.
+    * Users can mark a movie as a favorite in the details view by tapping a button (heart). This is for a local movies collection that will be maintained and does not require an API request.
+
+Yet to come:
     * App would be optimized for tabled experience.
 
 ## Getting Started
@@ -20,15 +20,16 @@ App uses The Movie Database API. To connect to it you have to enter unique API k
 
 ## Screens
 
-<img width="40%" src="https://cloud.githubusercontent.com/assets/23612157/22620385/31f9e3ee-eb0b-11e6-8da5-cb16d73e0480.png" />
-<img width="40%" src="https://cloud.githubusercontent.com/assets/23612157/22620386/31fcc550-eb0b-11e6-9f46-29afbd409e4b.png" />
-<img width="50%" src="https://cloud.githubusercontent.com/assets/23612157/22620387/31fedb60-eb0b-11e6-8ee0-6a0a8f8ea2b2.png" />
+<img width="40%" src="https://cloud.githubusercontent.com/assets/23612157/24065700/616810f6-0b6d-11e7-8e1b-2da2f142d7cf.png" />
+<img width="40%" src="https://cloud.githubusercontent.com/assets/23612157/24065701/61687df2-0b6d-11e7-9110-6aed372c1be9.png" />
+<img width="50%" src="https://cloud.githubusercontent.com/assets/23612157/24065699/61676e80-0b6d-11e7-8643-48cf743dd5e6.png" />
 
 ## Libraries
 
 * [Picasso](http://square.github.io/picasso/)
 * [Volley](https://github.com/google/volley)
 * [ButterKnife](https://github.com/JakeWharton/butterknife)
+* [GSON](https://github.com/google/gson)
 
 ## License
 

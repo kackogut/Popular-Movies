@@ -46,6 +46,7 @@ public final class NetworkUtils {
                 .appendPath(imageSize)
                 .appendEncodedPath(imageAdress)
                 .build();
+        Log.v("IMAGE", uriToUrl.toString());
         return getURLfromUri(uriToUrl);
     }
 

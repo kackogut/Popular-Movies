@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+<LinearLayout
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:weightSum="1">
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/poster_recycle_view">
+    </android.support.v7.widget.RecyclerView>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:padding="@dimen/error_text_padding"
+        android:text="@string/error_message"
+        android:textSize="@dimen/error_text_size"
+        android:visibility="invisible"
+        android:id="@+id/error_text"
+        android:gravity="center"
+        android:background="@color/primary_text"
+        android:layout_weight="0.11" />
+
+    <ProgressBar
+        android:id="@+id/loading_indicator"
+        android:layout_width="@dimen/progress_bar_padding"
+        android:layout_height="@dimen/progress_bar_padding"
+        android:layout_gravity="center"
+        android:visibility="invisible"/>
+</LinearLayout>
+    <include layout="@layout/movie_details_fragment"
+        android:visibility="gone"/>
+</LinearLayout>

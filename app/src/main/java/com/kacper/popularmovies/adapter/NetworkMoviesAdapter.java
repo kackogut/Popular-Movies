@@ -60,9 +60,8 @@ public class NetworkMoviesAdapter extends RecyclerView.Adapter<NetworkMoviesAdap
         Context context = parent.getContext();
         int layoutIdForListItem = R.layout.poster_layout;
         LayoutInflater inflater = LayoutInflater.from(context);
-        boolean shouldAttachToParentImmediately = false;
 
-        View view = inflater.inflate(layoutIdForListItem, parent, shouldAttachToParentImmediately);
+        View view = inflater.inflate(layoutIdForListItem, parent, false);
         return new PosterAdapterViewHolder(view);
     }
 
