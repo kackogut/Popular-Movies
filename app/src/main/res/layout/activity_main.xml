@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background"
-    android:weightSum="1">
+    android:weightSum="1"
+    android:id="@+id/base_movie_view">
 
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"

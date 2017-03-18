@@ -7,7 +7,7 @@
     android:id="@+id/activity_movie_details"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.DetailMovie">
+    tools:context=".ui.DetailMovieActivity">
 
 
     <android.support.constraint.ConstraintLayout

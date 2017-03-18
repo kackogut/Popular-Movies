@@ -22,6 +22,7 @@ public final class NetworkUtils {
     private final static String URI_PARAM_PAGE = "page";
     private final static String PAGE_TO_LOAD = "1";
 
+    public final static String FAVOURITED_MOVIES = "favourited";
     public final static String SORTING_POPULARITY = "popular";
     public final static String SORTING_RATING ="top_rated";
 
@@ -37,7 +38,6 @@ public final class NetworkUtils {
                 .appendPath(sortBy)
                 .appendQueryParameter(URI_PARAM_API_KEY,DATABASE_API_KEY)
                 .appendQueryParameter(URI_PARAM_PAGE,PAGE_TO_LOAD).build();
-        Log.v("URL ",uriToUrl.toString());
         return getURLfromUri(uriToUrl);
 
     }
@@ -46,7 +46,6 @@ public final class NetworkUtils {
                 .appendPath(imageSize)
                 .appendEncodedPath(imageAdress)
                 .build();
-        Log.v("IMAGE", uriToUrl.toString());
         return getURLfromUri(uriToUrl);
     }
 
@@ -56,7 +55,6 @@ public final class NetworkUtils {
                 .appendPath(imageID)
                 .appendPath(VIDEO)
                 .appendQueryParameter(URI_PARAM_API_KEY,DATABASE_API_KEY).build();
-        Log.v("URL  ",uri.toString());
         return getURLfromUri(uri);
     }
 

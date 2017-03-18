@@ -12,13 +12,17 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 
-public class JSONutils {
+public final class JSONutils {
     private static String TITLE = "original_title";
     private static String POSTER = "poster_path";
     private static String INFO = "overview";
     private static String AVG_VOTING = "vote_average";
     private static String AIR_DATE = "release_date";
     private static String MOVIE_ID = "id";
+
+    private JSONutils() {
+        throw new AssertionError();
+    }
 
     public static ArrayList<Movie> getAllMovies(String pageJSON) throws JSONException{
         JSONArray JSONMovies =null;

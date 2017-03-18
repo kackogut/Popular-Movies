@@ -7,7 +7,7 @@ import android.database.Cursor;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
-import android.os.DropBoxManager;
+import android.os.Parcelable;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
@@ -16,6 +16,7 @@ import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -45,6 +46,10 @@ public class MainActivity extends AppCompatActivity implements NetworkMoviesAdap
 
     private static final int ID_FAVOURITE_MOVIES_LOADER = 44;
 
+    Parcelable savedRecyclerState;
+    private static final String SAVED_ORDER_TEXT = "savedOrder";
+    private static final String SAVED_LAYOUT_POSITION_TEXT = "savedPosition";
+
     private static final String[] MAIN_MOVIE_PROJECTION = {
             MoviesDBContract.MovieEntry._ID,
             MoviesDBContract.MovieEntry.COLUMN_POSTER,
@@ -63,44 +68,48 @@ public class MainActivity extends AppCompatActivity implements NetworkMoviesAdap
     public static final int INDEX_MOVIE_OVERWIEW = 5;
     public static final int INDEX_AIR_DATE = 6;
 
+    private GridLayoutManager mGridLayoutManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mActualSortingOrder = NetworkUtils.SORTING_POPULARITY;
+        if(mActualSortingOrder==null)
+            mActualSortingOrder = NetworkUtils.SORTING_POPULARITY;
         ButterKnife.bind(this);
-        GridLayoutManager gridLayoutManager;
         if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT)
-            gridLayoutManager = new GridLayoutManager(this,2);
+            mGridLayoutManager = new GridLayoutManager(this,2);
         else
-            gridLayoutManager = new GridLayoutManager(this,4);
-        mPostersMovieRecyclerView.setLayoutManager(gridLayoutManager);
+            mGridLayoutManager = new GridLayoutManager(this,4);
+        mPostersMovieRecyclerView.setLayoutManager(mGridLayoutManager);
         mPostersMovieRecyclerView.setHasFixedSize(true);
         mNetworkMoviesAdapter = new NetworkMoviesAdapter(this,this);
         mPostersMovieRecyclerView.setAdapter(mNetworkMoviesAdapter);
+        if((savedInstanceState!=null)){
+            if(savedInstanceState.getString(SAVED_ORDER_TEXT)!=null)
+                mActualSortingOrder = savedInstanceState.getString(SAVED_ORDER_TEXT);
+        }
         loadData();
+
+
     }
 
     private void loadData(){
-        if(isOnline()) {
-            mErrorText.setText(R.string.error_message);
-            mNetworkMoviesAdapter.setAllMoviesOnPage(null);
-            new FetchMovieVolley(this,this).getRequest(mActualSortingOrder);
-
-        }
-        else{
-            mErrorText.setText(R.string.internet_error);
-            showErrorMessage(null);
+        if(mActualSortingOrder==NetworkUtils.FAVOURITED_MOVIES)
+            getSupportLoaderManager().initLoader(ID_FAVOURITE_MOVIES_LOADER, null, this);
+        else {
+            if (isOnline()) {
+                mErrorText.setText(R.string.error_message);
+                mNetworkMoviesAdapter.setAllMoviesOnPage(null);
+                new FetchMovieVolley(this, this).getRequest(mActualSortingOrder);
+            } else {
+                mErrorText.setText(R.string.internet_error);
+                showErrorMessage(null);
+            }
         }
 
     }
 
-    @Override
-    public View onCreateView(View parent, String name, Context context, AttributeSet attrs) {
-
-
-        return super.onCreateView(parent, name, context, attrs);
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -113,18 +122,19 @@ public class MainActivity extends AppCompatActivity implements NetworkMoviesAdap
         switch (item.getItemId()){
             case R.id.order_popular:
                 mActualSortingOrder =NetworkUtils.SORTING_POPULARITY;
-                getSupportActionBar().setTitle(getString(R.string.popular_toolbar_text));
+                setToolbarTitleBasedOnContent();
                 loadData();
                 item.setChecked(true);
                 return true;
             case R.id.order_top_rated:
                 mActualSortingOrder =NetworkUtils.SORTING_RATING;
-                getSupportActionBar().setTitle(getString(R.string.rating_toolbar_text));
+                setToolbarTitleBasedOnContent();
                 loadData();
                 item.setChecked(true);
                 return true;
             case R.id.favourite_movies:
-                getSupportActionBar().setTitle(getString(R.string.favourinted_toolbar_text));
+                mActualSortingOrder = NetworkUtils.FAVOURITED_MOVIES;
+                setToolbarTitleBasedOnContent();
                 item.setChecked(true);
                 getSupportLoaderManager().initLoader(ID_FAVOURITE_MOVIES_LOADER, null, this);
                 return true;
@@ -133,10 +143,53 @@ public class MainActivity extends AppCompatActivity implements NetworkMoviesAdap
         }
     }
 
+    private boolean setToolbarTitleBasedOnContent(){
+        if(getSupportActionBar() == null)
+            return false;
+        else {
+            switch (mActualSortingOrder) {
+                case NetworkUtils.SORTING_RATING:
+                    getSupportActionBar().setTitle(getString(R.string.rating_toolbar_text));
+                    return true;
+                case NetworkUtils.SORTING_POPULARITY:
+                    getSupportActionBar().setTitle(getString(R.string.popular_toolbar_text));
+                    return true;
+                case NetworkUtils.FAVOURITED_MOVIES:
+                    getSupportActionBar().setTitle(getString(R.string.favourinted_toolbar_text));
+                    return true;
+                default:
+                    return false;
+            }
+        }
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+        if(getSupportActionBar() == null)
+            return false;
+        else {
+            setToolbarTitleBasedOnContent();
+            switch (mActualSortingOrder) {
+                case NetworkUtils.SORTING_RATING:
+                    menu.findItem(R.id.order_top_rated).setChecked(true);
+                    return true;
+                case NetworkUtils.SORTING_POPULARITY:
+                    menu.findItem(R.id.order_popular).setChecked(true);
+                    return true;
+                case NetworkUtils.FAVOURITED_MOVIES:
+                    menu.findItem(R.id.favourite_movies).setChecked(true);
+                    return true;
+                default:
+                    return false;
+            }
+        }
+    }
+
     @Override
     public void onClick(Movie clickedMovie) {
         Context context = this;
-        Class destinationClass = DetailMovie.class;
+        Class destinationClass = DetailMovieActivity.class;
         Intent intentToStartDetailMovie = new Intent(context, destinationClass);
 
         intentToStartDetailMovie.putExtra("movie",clickedMovie);
@@ -148,6 +201,8 @@ public class MainActivity extends AppCompatActivity implements NetworkMoviesAdap
     public void showMovieData(){
         mErrorText.setVisibility(View.INVISIBLE);
         mPostersMovieRecyclerView.setVisibility(View.VISIBLE);
+        if(savedRecyclerState!=null)
+            mPostersMovieRecyclerView.getLayoutManager().onRestoreInstanceState(savedRecyclerState);
     }
     @Override
     public void showErrorMessage(String message){
@@ -212,5 +267,23 @@ public class MainActivity extends AppCompatActivity implements NetworkMoviesAdap
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
 
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString(SAVED_ORDER_TEXT,mActualSortingOrder);
+        outState.putParcelable(SAVED_LAYOUT_POSITION_TEXT,mGridLayoutManager.onSaveInstanceState());
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+
+        if(savedInstanceState!=null && savedInstanceState.getParcelable(SAVED_LAYOUT_POSITION_TEXT)!=null){
+            Parcelable savedRecyclerLayoutState = savedInstanceState.getParcelable(SAVED_LAYOUT_POSITION_TEXT);
+            mPostersMovieRecyclerView.getLayoutManager().onRestoreInstanceState(savedRecyclerLayoutState);
+            savedRecyclerState = savedRecyclerLayoutState;
+        }
     }
 }

@@ -19,14 +19,14 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.DetailMovie"
+            android:name=".ui.DetailMovieActivity"
             android:parentActivityName=".ui.MainActivity"
             android:theme="@style/AppTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ui.MainActivity" />
         </activity>
-
+        <service android:enabled="true" android:name=".services.AddingToDatabaseService"/>
         <provider
             android:name=".data.provider.MovieProvider"
             android:authorities="com.kacper.popularmovies"
