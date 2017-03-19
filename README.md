@@ -16,7 +16,7 @@ Yet to come:
 
 ## Getting Started
 
-App uses The Movie Database API. To connect to it you have to enter unique API key. You can create it here: https://www.themoviedb.org/account/signup?language=en-EN , and then paste it to code marked with TODO.
+App uses The Movie Database API. To connect to it you have to enter unique API key. You can create it here: https://www.themoviedb.org/account/signup?language=en-EN. Safest way is to paste it to .gradle/gradle.properties file, or alternatively to code variable marked with TODO.
 
 ## Screens
 

@@ -1,6 +1,7 @@
 package com.kacper.popularmovies.utilities;
 
 import android.net.Uri;
+import android.support.compat.BuildConfig;
 import android.util.Log;
 
 import java.net.MalformedURLException;
@@ -13,7 +14,8 @@ import java.net.URL;
 
 public final class NetworkUtils {
     //TODO Insert your API key here
-    private final static String DATABASE_API_KEY = "";
+    private final static String DATABASE_API_KEY = com.kacper.popularmovies.BuildConfig.MY_MOVIE_DB_API_KEY;
+
     private final static String URI_PARAM_API_KEY = "api_key";
 
     private final static String BASE_URL = "http://api.themoviedb.org/3/movie";
@@ -46,6 +48,7 @@ public final class NetworkUtils {
                 .appendPath(imageSize)
                 .appendEncodedPath(imageAdress)
                 .build();
+        Log.v("das",uriToUrl.toString());
         return getURLfromUri(uriToUrl);
     }
 
@@ -55,6 +58,7 @@ public final class NetworkUtils {
                 .appendPath(imageID)
                 .appendPath(VIDEO)
                 .appendQueryParameter(URI_PARAM_API_KEY,DATABASE_API_KEY).build();
+
         return getURLfromUri(uri);
     }
 

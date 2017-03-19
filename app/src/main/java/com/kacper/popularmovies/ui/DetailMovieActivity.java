@@ -80,6 +80,7 @@ public class DetailMovieActivity extends AppCompatActivity implements DetailedMo
         if(intentThatStartedActivity!=null) {
             Bundle data = getIntent().getExtras();
             mMovie =  data.getParcelable("movie");
+            Log.v("MovieID",mMovie.getMovieId());
             if(intentThatStartedActivity.hasExtra("movie")){
                 title.setText(mMovie.getTitle());
                 overwiew.setText(mMovie.getOverwiew());
@@ -120,9 +121,14 @@ public class DetailMovieActivity extends AppCompatActivity implements DetailedMo
         if(item.getItemId()==R.id.share_youtube_link){
             Intent sendIntent = new Intent();
             sendIntent.setAction(Intent.ACTION_SEND);
-            sendIntent.putExtra(Intent.EXTRA_TEXT, mTrailerURLs.get(0));
+            if(mTrailerURLs.size()>0)
+                sendIntent.putExtra(Intent.EXTRA_TEXT, mTrailerURLs.get(0));
+            else
+                sendIntent.putExtra(Intent.EXTRA_TEXT,mMovie.getOverwiew());
             sendIntent.setType("text/plain");
-            startActivity(sendIntent);
+            if (sendIntent.resolveActivity(getPackageManager()) != null) {
+                startActivity(sendIntent);
+            }
             return true;
         }else
             return false;
@@ -154,7 +160,8 @@ public class DetailMovieActivity extends AppCompatActivity implements DetailedMo
             tmp = mTrailerURLs.get(0);
         }else
             tmp = mTrailerURLs.get(1);
-        if(tmp!=null)
+        Intent sendIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(tmp));
+        if(tmp!=null && sendIntent.resolveActivity(getPackageManager())!=null)
             startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(tmp)));
     }
     public void addToFavourites(View view){
